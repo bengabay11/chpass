@@ -1,9 +1,10 @@
 import getpass
 
 import pytest
+
+from chpass.__main__ import create_chrome_db_adapter
 from chpass.config import DB_PROTOCOL
 
-from chpass import create_chrome_db_adapter
 from chpass.dal import ChromeDBAdapter
 
 

@@ -1,7 +1,8 @@
 # chpass
-Import and Export passwords for Chrome 🔑
+Gather information from Chrome 🔑
 
-## Additional Features
+## Features
+- import/export passwords
 - history
 - google account profile picture
 - downloads

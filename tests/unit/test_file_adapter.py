@@ -3,7 +3,8 @@ from typing import List
 
 import pytest
 
-from chpass import CsvFileAdapter, JsonFileAdapter
+from chpass.services.file_adapters.CsvFileAdapter import CsvFileAdapter
+from chpass.services.file_adapters.JsonFileAdapter import JsonFileAdapter
 
 
 @pytest.fixture(scope="module")

@@ -3,7 +3,6 @@ import getpass
 
 from chpass.config import (
     DEFAULT_EXPORT_DESTINATION_FOLDER,
-    DEFAULT_EXPORT_ALL_DATA,
     DEFAULT_FILE_ADAPTER
 )
 
@@ -29,14 +28,6 @@ def create_export_parser(subparsers: argparse._SubParsersAction) -> None:
         type=str,
         help="destination folder to export the files",
         default=DEFAULT_EXPORT_DESTINATION_FOLDER
-    )
-    parser_export.add_argument(
-        "-a",
-        "--all",
-        dest="all_data",
-        help="export additional data - history, top sites, downloads",
-        action='store_true',
-        default=DEFAULT_EXPORT_ALL_DATA
     )
 
 

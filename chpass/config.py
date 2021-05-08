@@ -28,7 +28,6 @@ OUTPUT_FILE_PATHS = {
     }
 }
 OUTPUT_PROFILE_PICTURE_FILE = "profile.jpg"
-DEFAULT_EXPORT_ALL_DATA = False
 
 DB_PROTOCOL = "sqlite"
 

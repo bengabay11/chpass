@@ -32,9 +32,5 @@ def test_export_file_adapter(export_mode, file_adapter_type):
     raise NotImplementedError
 
 
-def test_export_all_data(export_mode):
-    raise NotImplementedError
-
-
 def test_export_destination_folder(export_mode, destination_folder):
     raise NotImplementedError
