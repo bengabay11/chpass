@@ -12,20 +12,18 @@ Gather information from Chrome 🔑
 ```bash
 $ pip install chpass
 ```
-you can also clone the repo and install locally:
-```bash
-scripts/install.sh
-```
-## Usage
-export the user passwords:
-```bash
-chpass export
-```
-the file will be saved under `dist/passwords.csv`
 
-import the passwords:
+## Usage
 ```bash
-chpass import -f passwords.csv
+usage: chpass [-h] [-u USER] [-i FILE_ADAPTER] {import,export} ...
+```
+#### Export
+```bash
+usage: chpass export [-h] [-d DESTINATION_FOLDER] {passwords,history,downloads,top_sites,profile_pic} ...
+```
+#### Import
+```bash
+usage: chpass import [-h] -f FROM_FILE
 ```
 
 ## File adapters
