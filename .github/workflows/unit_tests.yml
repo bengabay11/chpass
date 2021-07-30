@@ -1,0 +1,14 @@
+name: Test chpass
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+      - run: |
+      pip install pipenv
+      pipenv install --dev
+
+      - name: run unit tests
+      - run: pytest tests/unit
