@@ -6,9 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-      - run: |
-      pip install pipenv
-      pipenv install --dev
+      - run: pip install pipenv
+      - run: pipenv install --dev
 
       - name: run unit tests
       - run: pytest tests/unit
