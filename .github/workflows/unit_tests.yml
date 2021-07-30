@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Dependencies
-          run: |
-            pip install pipenv
-            pipenv install --dev
+        run: |
+          pip install pipenv
+          pipenv install --dev
       - name: Run Unit Tests
         run: pytest tests/unit
