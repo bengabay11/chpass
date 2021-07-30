@@ -1,1 +1,0 @@
-pyinstaller -n chpass --onefile chpass/__main__.py
