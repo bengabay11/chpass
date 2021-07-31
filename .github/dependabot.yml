@@ -4,4 +4,7 @@ updates:
   directory: "/"
   schedule:
     interval: daily
+    time: "08:00"
+  labels:
+    - "dependabot"
   open-pull-requests-limit: 10
