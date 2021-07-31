@@ -1,0 +1,17 @@
+name: Integration Tests chpass
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Chrome
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install ./google-chrome-stable_current_amd64.deb
+      - name: Install Dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+      - name: Run Integration Tests
+        run: pipenv run integ_tests
