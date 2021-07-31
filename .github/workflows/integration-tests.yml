@@ -4,7 +4,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      max-parallel: 3
+      max-parallel: 9
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -28,8 +28,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pipenv-v2-
       - name: Install Chrome
-        run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install ./google-chrome-stable_current_amd64.deb
+        uses: browser-actions/setup-chrome@latest
       - name: Run Integration Tests
         run: pipenv run integ_tests
