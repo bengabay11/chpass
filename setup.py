@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="chpass",
-    version="0.2.0",
+    version="0.2.1",
     author="Ben Gabay",
     author_email="ben.gabay38@gmail.com",
     license="License :: OSI Approved :: MIT License",
@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         "sqlalchemy==1.3.18",
-        "pandas==1.1.2",
+        "pandas==1.3.1",
         "pattern_singleton==1.2.0"
     ],
     python_requires=">=3",

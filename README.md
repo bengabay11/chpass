@@ -1,7 +1,7 @@
 [![Unit Tests](https://github.com/bengabay11/chpass/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/bengabay11/chpass/actions/workflows/unit-tests.yml)
 [![Integration Tests](https://github.com/bengabay11/chpass/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/bengabay11/chpass/actions/workflows/integration-tests.yml)
-[![python](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue)](https://github.com/bengabay11/chpass/blob/master/Pipfile)
-[![platform](https://img.shields.io/badge/platform-windows%20%7C%20ubuntu%20%7C%20macos-lightgrey)](https://github.com/bengabay11/chpass/blob/master/Pipfile)
+[![python](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue)](https://pypi.org/project/chpass/)
+[![platform](https://img.shields.io/badge/platform-windows%20%7C%20ubuntu%20%7C%20macos-lightgrey)](https://pypi.org/project/chpass/)
 
 # chpass
 Gather information from Chrome 🔑
