@@ -14,6 +14,7 @@ pytest-cov = "*"
 sqlalchemy = "==1.3.18"
 pandas = "==1.1.5"
 pattern-singleton = "==1.2.0"
+atomicwrites = "*"
 
 [scripts]
 lint = "pylint --rcfile=.pylintrc chpass"
