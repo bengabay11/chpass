@@ -17,8 +17,8 @@ pattern-singleton = "==1.2.0"
 
 [scripts]
 lint = "pylint --rcfile=.pylintrc chpass"
-unit_tests = "pytest tests/unit"
-unit_tests_cov = "pytest --cov=chpass tests/unit"
-integ_tests = "pytest tests/integration"
-integ_tests_cov = "pytest --cov=chpass tests/integration"
+unit-test = "pytest tests/unit"
+unit-test-cov = "pytest --cov=chpass tests/unit"
+integ-test = "pytest tests/integration"
+integ-test-cov = "pytest --cov=chpass tests/integration"
 compile = "pyinstaller -n chpass --onefile chpass/__main__.py"
