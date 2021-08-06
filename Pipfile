@@ -23,3 +23,6 @@ unit-test-cov = "pytest --cov=chpass tests/unit"
 integ-test = "pytest tests/integration"
 integ-test-cov = "pytest --cov=chpass tests/integration"
 compile = "pyinstaller -n chpass --onefile chpass/__main__.py"
+
+[requires]
+python_version = "3"
