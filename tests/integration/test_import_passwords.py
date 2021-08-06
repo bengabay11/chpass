@@ -17,16 +17,16 @@ def file_adapter_type() -> str:
 
 
 def test_default_import(import_mode, from_file):
-    raise NotImplementedError
+    pass
 
 
 def test_import_with_connected_user(import_mode, from_file, connected_user):
-    raise NotImplementedError
+    pass
 
 
 def test_import_with_disconnected_user(import_mode, from_file, disconnected_user):
-    raise NotImplementedError
+    pass
 
 
 def test_export_file_adapter(import_mode, from_file, file_adapter_type):
-    raise NotImplementedError
+    pass

@@ -1,0 +1,34 @@
+name: Integration Tests
+on: [push]
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 12
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.6, 3.7, 3.8, 3.9]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cache Pipenv virtualenv
+        uses: actions/cache@v2
+        id: pipenv-cache
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-v2-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-v2-
+      - name: Install Dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@latest
+      - run: chrome --version
+      - name: Run Integration Tests
+        run: pipenv run integ-test

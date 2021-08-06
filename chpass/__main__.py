@@ -1,7 +1,7 @@
 import sys
 
 from chpass.cli import parse_args
-from chpass.config import OUTPUT_FILE_PATHS, DB_PROTOCOL, OUTPUT_PROFILE_PICTURE_FILE
+from chpass.config import OUTPUT_FILE_PATHS, DB_PROTOCOL
 from chpass.core.object_factory import ObjectFactory
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.dal.db_connection import DBConnection
@@ -43,7 +43,6 @@ def start(args=None) -> None:
         args = parse_args(sys.argv[1:])
     file_adapter = create_file_adapter(args.file_adapter)
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
-    output_file_paths["profile_picture"] = OUTPUT_PROFILE_PICTURE_FILE
     chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user)
     mode_actions = {
         "export": lambda: export_chrome_data(chrome_db_adapter, args.destination_folder, file_adapter,

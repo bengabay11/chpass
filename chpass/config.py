@@ -19,16 +19,16 @@ OUTPUT_FILE_PATHS = {
         "history": "history.csv",
         "downloads": "downloads.csv",
         "top_sites": "top_sites.csv",
+        "profile_picture": "profile.jpg"
     },
     "json": {
         "passwords": "passwords.json",
         "history": "history.json",
         "downloads": "downloads.json",
         "top_sites": "top_sites.json",
+        "profile_picture": "profile.jpg"
     }
 }
-OUTPUT_PROFILE_PICTURE_FILE = "profile.jpg"
-
 DB_PROTOCOL = "sqlite"
 
 DEFAULT_FILE_ADAPTER = "csv"

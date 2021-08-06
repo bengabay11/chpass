@@ -1,3 +1,8 @@
+[![Unit Tests](https://github.com/bengabay11/chpass/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/bengabay11/chpass/actions/workflows/unit-tests.yml)
+[![Integration Tests](https://github.com/bengabay11/chpass/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/bengabay11/chpass/actions/workflows/integration-tests.yml)
+[![python](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue)](https://github.com/bengabay11/chpass/blob/master/Pipfile)
+[![platform](https://img.shields.io/badge/platform-windows%20%7C%20ubuntu%20%7C%20macos-lightgrey)](https://github.com/bengabay11/chpass/blob/master/Pipfile)
+
 # chpass
 Gather information from Chrome 🔑
 
@@ -12,20 +17,18 @@ Gather information from Chrome 🔑
 ```bash
 $ pip install chpass
 ```
-you can also clone the repo and install locally:
-```bash
-scripts/install.sh
-```
-## Usage
-export the user passwords:
-```bash
-chpass export
-```
-the file will be saved under `dist/passwords.csv`
 
-import the passwords:
+## Usage
 ```bash
-chpass import -f passwords.csv
+usage: chpass [-h] [-u USER] [-i FILE_ADAPTER] {import,export} ...
+```
+#### Export
+```bash
+usage: chpass export [-h] [-d DESTINATION_FOLDER] {passwords,history,downloads,top_sites,profile_pic} ...
+```
+#### Import
+```bash
+usage: chpass import [-h] -f FROM_FILE
 ```
 
 ## File adapters
@@ -37,11 +40,6 @@ you can change the file adapter with the flag:
 ```bash
 chpass -i json export
 ```
-
-## Requirements
-- Python 3.6+
-- Chrome 84.0+
-- Windows 10/macOS/Linux
 
 ## Notes
 > Chrome must be closed during the whole process, because its database is locked while running.
