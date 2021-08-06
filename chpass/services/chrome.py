@@ -5,7 +5,7 @@ from typing import List, Callable
 
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.core.interfaces import file_adapter_interface
-from chpass.config import OUTPUT_PROFILE_PICTURE_FILE, PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE
+from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE
 from chpass.services.path import get_chrome_profile_picture_path
 
 
