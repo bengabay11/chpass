@@ -18,6 +18,7 @@ from .services.chrome import (
     export_passwords
 )
 from .services.path import get_chrome_user_folder, get_home_directory
+from .__main__ import create_chrome_db_adapter
 
 
 def main():
