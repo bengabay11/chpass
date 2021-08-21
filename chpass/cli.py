@@ -7,10 +7,10 @@ from chpass.config import DEFAULT_FILE_ADAPTER
 def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_import = subparsers.add_parser("import", description="imports a file with the passwords")
     parser_import.add_argument(
-        "-f",
-        "--from",
-        dest="from_file",
-        help="credentials file to import from",
+        "-i",
+        "--input",
+        dest="file_path",
+        help="Import from compressed file",
         type=str,
         required=True
     )
