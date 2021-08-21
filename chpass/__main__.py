@@ -1,4 +1,5 @@
 import sys
+from getpass import getuser
 
 from chpass.cli import parse_args
 from chpass.config import OUTPUT_FILE_PATHS, DB_PROTOCOL
@@ -23,7 +24,7 @@ def create_file_adapter(file_adapter_type: str) -> file_adapter_interface:
     return object_factory.create(file_adapter_type, exception=FileAdapterNotSupportedException)
 
 
-def create_chrome_db_adapter(protocol: str, os_user: str) -> ChromeDBAdapter:
+def create_chrome_db_adapter(protocol: str = "sqlite", os_user: str = getuser()) -> ChromeDBAdapter:
     logins_db_connection = DBConnection()
     history_db_connection = DBConnection()
     top_sites_db_connection = DBConnection()
@@ -45,8 +46,8 @@ def start(args=None) -> None:
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
     chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user)
     mode_actions = {
-        "export": lambda: export_chrome_data(chrome_db_adapter, args.destination_folder, file_adapter,
-                                             output_file_paths, args.user, args.export_kind),
+        "export": lambda: export_chrome_data(chrome_db_adapter, file_adapter,
+                                             output_file_paths, args.output_file, args.user, args.export_kind),
         "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter)
     }
     mode_actions[args.mode]()

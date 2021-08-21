@@ -1,10 +1,7 @@
 import argparse
 import getpass
 
-from chpass.config import (
-    DEFAULT_EXPORT_DESTINATION_FOLDER,
-    DEFAULT_FILE_ADAPTER
-)
+from chpass.config import DEFAULT_FILE_ADAPTER
 
 
 def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
@@ -22,12 +19,12 @@ def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
 def create_export_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_export = subparsers.add_parser("export", description="exports a chrome data files")
     parser_export.add_argument(
-        "-d",
-        "--destination",
-        dest="destination_folder",
+        "-o",
+        "--output",
+        dest="output_file",
         type=str,
-        help="destination folder to export the files",
-        default=DEFAULT_EXPORT_DESTINATION_FOLDER
+        required=True,
+        help="output file for the exported data"
     )
     export_subparsers = parser_export.add_subparsers(dest="export_kind")
     export_subparsers.required = False
