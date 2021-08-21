@@ -14,7 +14,9 @@ from chpass.services.chrome import export_chrome_data, import_chrome_passwords
 from chpass.services.file_adapters.csv_file_adapter import CsvFileAdapter
 from chpass.services.file_adapters.json_file_adapter import JsonFileAdapter
 from chpass.core.interfaces import file_adapter_interface
+from chpass.services.package_version import check_latest_package_version
 from chpass.services.path import get_chrome_logins_path, get_chrome_history_path, get_chrome_top_sites_path
+from chpass.version import name as package_name
 
 
 def create_file_adapter(file_adapter_type: str) -> file_adapter_interface:
@@ -42,13 +44,14 @@ def start(args=None) -> None:
         args = parse_args(args)
     else:
         args = parse_args(sys.argv[1:])
+    check_latest_package_version(package_name)
     file_adapter = create_file_adapter(args.file_adapter)
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
     chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user)
     mode_actions = {
         "export": lambda: export_chrome_data(chrome_db_adapter, file_adapter,
                                              output_file_paths, args.output_file, args.user, args.export_kind),
-        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter)
+        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.file_path, file_adapter)
     }
     mode_actions[args.mode]()
     chrome_db_adapter.close()
