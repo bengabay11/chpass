@@ -20,7 +20,7 @@ def input_file_path() -> str:
 
 
 @pytest.fixture(scope="module")
-def output_file() -> str:
+def output_file_path() -> str:
     return "import"
 
 
@@ -29,11 +29,11 @@ def correct_file_adapter() -> str:
     return "json"
 
 
-def test_default_export(export_mode, connected_user, output_file):
-    args = parse_args([export_mode, "-o", output_file])
+def test_default_export(export_mode, connected_user, output_file_path):
+    args = parse_args([export_mode, "-o", output_file_path])
     assert args.mode == export_mode
     assert args.user == connected_user
-    assert args.output_file == output_file
+    assert args.output_file_path == output_file_path
     assert args.file_adapter == DEFAULT_FILE_ADAPTER
     assert not hasattr(args, "file_path")
 
@@ -42,14 +42,14 @@ def test_default_import(import_mode, connected_user, input_file_path):
     args = parse_args([import_mode, "-i", input_file_path])
     assert args.mode == import_mode
     assert args.user == connected_user
-    assert not hasattr(args, "output_file")
+    assert not hasattr(args, "output_file_path")
     assert args.file_adapter == DEFAULT_FILE_ADAPTER
     assert args.input_file_path == input_file_path
 
 
-def test_user_flag_export(export_mode, connected_user, output_file):
+def test_user_flag_export(export_mode, connected_user, output_file_path):
     user = connected_user
-    args = parse_args(["-u", user, export_mode, "-o", output_file])
+    args = parse_args(["-u", user, export_mode, "-o", output_file_path])
     assert args.mode == export_mode
     assert args.user == user
 
@@ -80,8 +80,8 @@ def test_user_flag_import(import_mode, connected_user, input_file_path):
     assert args.input_file_path == input_file_path
 
 
-def test_file_adapter_flag_export(export_mode, correct_file_adapter, output_file):
-    args = parse_args(["-f", correct_file_adapter, export_mode, "-o", output_file])
+def test_file_adapter_flag_export(export_mode, correct_file_adapter, output_file_path):
+    args = parse_args(["-f", correct_file_adapter, export_mode, "-o", output_file_path])
     assert args.mode == export_mode
     assert args.file_adapter == correct_file_adapter
 

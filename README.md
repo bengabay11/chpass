@@ -24,11 +24,11 @@ usage: chpass [-h] [-u USER] [-i FILE_ADAPTER] {import,export} ...
 ```
 #### Export
 ```bash
-usage: chpass export [-h] -o OUTPUT_FILE {passwords,history,downloads,top_sites,profile_pic} ...
+usage: chpass export [-h] -o OUTPUT_FILE_PATH {passwords,history,downloads,top_sites,profile_pic} ...
 ```
 #### Import
 ```bash
-usage: chpass import [-h] -i FILE_PATH
+usage: chpass import [-h] -i INPUT_FILE_PATH
 ```
 
 ## File adapters

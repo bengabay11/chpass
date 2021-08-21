@@ -21,7 +21,7 @@ def create_export_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_export.add_argument(
         "-o",
         "--output",
-        dest="output_file",
+        dest="output_file_path",
         type=str,
         required=True,
         help="output file for the exported data"
