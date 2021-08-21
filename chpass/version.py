@@ -1,7 +1,7 @@
 name = 'chpass'
 description = 'Gather information from chrome'
 url = 'https://github.com/bengabay11/chpass'
-version = '0.2.2'
+version = '0.3.0'
 author = 'Ben Gabay'
 author_email = 'ben.gabay38@gmail.com'
 license = 'License :: OSI Approved :: MIT License'
