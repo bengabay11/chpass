@@ -51,7 +51,7 @@ def start(args=None) -> None:
     mode_actions = {
         "export": lambda: export_chrome_data(chrome_db_adapter, file_adapter,
                                              output_file_paths, args.output_file, args.user, args.export_kind),
-        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.file_path, file_adapter)
+        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.input_file_path, file_adapter)
     }
     mode_actions[args.mode]()
     chrome_db_adapter.close()

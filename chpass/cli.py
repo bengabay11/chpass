@@ -9,7 +9,7 @@ def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_import.add_argument(
         "-i",
         "--input",
-        dest="file_path",
+        dest="input_file_path",
         help="Import from compressed file",
         type=str,
         required=True
@@ -46,7 +46,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
     create_import_parser(subparsers)
     create_export_parser(subparsers)
     parser.add_argument("-u", "--user", dest="user", type=str, default=getpass.getuser())
-    parser.add_argument("-i", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
+    parser.add_argument("-f", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
     return parser
 
 
