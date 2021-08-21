@@ -1,18 +1,27 @@
 import setuptools
+from chpass.version import (
+    name,
+    version,
+    author,
+    author_email,
+    license,
+    description,
+    url
+)
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="chpass",
-    version="0.2.2",
-    author="Ben Gabay",
-    author_email="ben.gabay38@gmail.com",
-    license="License :: OSI Approved :: MIT License",
-    description="Gather information from chrome",
+    name=name,
+    version=version,
+    author=author,
+    author_email=author_email,
+    license=license,
+    description=description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/bengabay11/chpass",
+    url=url,
     packages=setuptools.find_packages(),
     install_requires=[
         "sqlalchemy==1.3.18",
