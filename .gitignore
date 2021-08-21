@@ -133,3 +133,6 @@ dmypy.json
 
 # Coverage
 .coverage
+
+# Compressed files
+*.zip
