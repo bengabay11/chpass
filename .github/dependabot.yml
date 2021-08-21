@@ -6,5 +6,5 @@ updates:
     interval: daily
     time: "08:00"
   labels:
-    - "dependabot"
+    - "dependencies"
   open-pull-requests-limit: 10
