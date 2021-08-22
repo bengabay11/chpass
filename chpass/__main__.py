@@ -10,13 +10,18 @@ from chpass.dal.db_adapters.history_db_adapter import HistoryDBAdapter
 from chpass.dal.db_adapters.logins_db_adapter import LoginsDBAdapter
 from chpass.dal.db_adapters.top_sites_db_adapter import TopSitesDBAdapter
 from chpass.exceptions.file_adapter_not_supported_exception import FileAdapterNotSupportedException
+from chpass.services.chrome_export import export_chrome_data
 from chpass.services.chrome_import import import_chrome_passwords
-from chpass import export_chrome_data
 from chpass.services.file_adapters.csv_file_adapter import CsvFileAdapter
 from chpass.services.file_adapters.json_file_adapter import JsonFileAdapter
 from chpass.core.interfaces import file_adapter_interface
 from chpass.services.package_version import check_latest_package_version
-from chpass.services.path import get_chrome_logins_path, get_chrome_history_path, get_chrome_top_sites_path
+from chpass.services.path import (
+    get_chrome_logins_path,
+    get_chrome_history_path,
+    get_chrome_top_sites_path,
+    get_chrome_user_folder
+)
 from chpass.version import name as package_name
 
 
@@ -49,10 +54,23 @@ def start(args=None) -> None:
     file_adapter = create_file_adapter(args.file_adapter)
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
     chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user)
+    chrome_user_folder = get_chrome_user_folder(args.user)
     mode_actions = {
-        "export": lambda: export_chrome_data(chrome_db_adapter, file_adapter,
-                                             output_file_paths, args.output_file_path, args.user, args.export_kind),
-        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.input_file_path, file_adapter)
+        "export": lambda: export_chrome_data(
+            chrome_user_folder,
+            chrome_db_adapter,
+            file_adapter,
+            output_file_paths,
+            args.output_file_path,
+            args.user,
+            args.export_kind
+        ),
+        "import": lambda: import_chrome_passwords(
+            chrome_user_folder,
+            chrome_db_adapter,
+            args.input_file_path,
+            file_adapter
+        )
     }
     mode_actions[args.mode]()
     chrome_db_adapter.close()

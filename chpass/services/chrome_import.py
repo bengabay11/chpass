@@ -1,17 +1,21 @@
 import os
 from typing import List
 
+
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.core.interfaces import file_adapter_interface
 from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE
+from chpass.services.encryption import get_master_key, decrypt_password
 from chpass.services.zip import extract_file_from_zip
 
 
 def import_chrome_passwords(
+        chrome_user_folder: str,
         chrome_db_adapter: ChromeDBAdapter,
         source_file_path: str,
         file_adapter: file_adapter_interface) -> None:
     """Imports passwords to chrome db.
+    :param chrome_user_folder: Local Chrome folder of the user
     :param chrome_db_adapter: Adapter for the chrome db
     :param source_file_path: Source file to import the passwords from
     :param file_adapter: Adapter to read the passwords from a file
@@ -21,10 +25,12 @@ def import_chrome_passwords(
     if not os.path.exists(source_file_path):
         raise FileNotFoundError(source_file_path)
     extract_file_from_zip(source_file_path, "passwords.csv")
-    logins_to_import = file_adapter.read("passwords.csv", byte_columns=PASSWORDS_FILE_BYTES_COLUMNS)
+    logins = file_adapter.read("passwords.csv", byte_columns=PASSWORDS_FILE_BYTES_COLUMNS)
     os.remove("passwords.csv")
-    unique_logins_to_import = filter_existed_logins(chrome_db_adapter, logins_to_import)
-    for login in unique_logins_to_import:
+    unique_logins = filter_existed_logins(chrome_db_adapter, logins)
+    master_key = get_master_key(chrome_user_folder)
+    for login in unique_logins:
+        login["password_value"] = decrypt_password(login["password_value"], master_key)
         chrome_db_adapter.logins_db.logins_table.insert_login(login)
 
 
