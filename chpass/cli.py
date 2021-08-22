@@ -1,19 +1,16 @@
 import argparse
 import getpass
 
-from chpass.config import (
-    DEFAULT_EXPORT_DESTINATION_FOLDER,
-    DEFAULT_FILE_ADAPTER
-)
+from chpass.config import DEFAULT_FILE_ADAPTER
 
 
 def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_import = subparsers.add_parser("import", description="imports a file with the passwords")
     parser_import.add_argument(
-        "-f",
-        "--from",
-        dest="from_file",
-        help="credentials file to import from",
+        "-i",
+        "--input",
+        dest="input_file_path",
+        help="Import from compressed file",
         type=str,
         required=True
     )
@@ -22,12 +19,12 @@ def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
 def create_export_parser(subparsers: argparse._SubParsersAction) -> None:
     parser_export = subparsers.add_parser("export", description="exports a chrome data files")
     parser_export.add_argument(
-        "-d",
-        "--destination",
-        dest="destination_folder",
+        "-o",
+        "--output",
+        dest="output_file_path",
         type=str,
-        help="destination folder to export the files",
-        default=DEFAULT_EXPORT_DESTINATION_FOLDER
+        required=True,
+        help="output file for the exported data"
     )
     export_subparsers = parser_export.add_subparsers(dest="export_kind")
     export_subparsers.required = False
@@ -49,7 +46,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
     create_import_parser(subparsers)
     create_export_parser(subparsers)
     parser.add_argument("-u", "--user", dest="user", type=str, default=getpass.getuser())
-    parser.add_argument("-i", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
+    parser.add_argument("-f", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
     return parser
 
 

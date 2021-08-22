@@ -12,7 +12,6 @@ HISTORY_DB_FILE_PATH = os.path.join("Default", "History")
 TOP_SITES_DB_FILE_PATH = os.path.join("Default", "Top Sites")
 GOOGLE_PICTURE_FILE_PATH = os.path.join("Default", "Google Profile Picture.png")
 
-DEFAULT_EXPORT_DESTINATION_FOLDER = "dist"
 OUTPUT_FILE_PATHS = {
     "csv": {
         "passwords": "passwords.csv",
