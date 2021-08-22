@@ -6,8 +6,9 @@ from typing import List, Callable
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.core.interfaces import file_adapter_interface
 from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE
-from chpass.services.path import get_chrome_profile_picture_path
-from chpass.services.zip import zip_files
+from chpass.services.encryption import get_master_key, decrypt_password
+from chpass.services.path import get_chrome_profile_picture_path, get_chrome_user_folder
+from chpass.services.zip import zip_files, extract_file_from_zip
 
 
 def generic_export(
@@ -72,10 +73,12 @@ def export_top_sites(
 
 
 def export_passwords(
+        user: str,
         chrome_db_adapter: ChromeDBAdapter,
         file_adapter: file_adapter_interface,
         filename: str) -> None:
     """Exports chrome passwords to a file
+    :param user: User to export the password for
     :param chrome_db_adapter: Adapter for the chrome db
     :param file_adapter: Adapter for writing the passwords data to a file
     :param filename: Destination file name for the passwords
@@ -83,7 +86,11 @@ def export_passwords(
     :rtype: None
     """
     logins = chrome_db_adapter.logins_db.logins_table.get_all_logins(serializable=True)
-    file_adapter.write(logins, filename, byte_columns=PASSWORDS_FILE_BYTES_COLUMNS)
+    chrome_user_folder = get_chrome_user_folder(user)
+    master_key = get_master_key(chrome_user_folder)
+    for login in logins:
+        login["password_value"] = decrypt_password(login["password_value"], master_key)
+    file_adapter.write(logins, filename)
 
 
 def export_chrome_data(
@@ -104,7 +111,7 @@ def export_chrome_data(
     :rtype: None
     """
     export_functions = {
-        "passwords": lambda: export_passwords(chrome_db_adapter, file_adapter, output_file_paths["passwords"]),
+        "passwords": lambda: export_passwords(user, chrome_db_adapter, file_adapter, output_file_paths["passwords"]),
         "history": lambda: export_history(chrome_db_adapter, file_adapter, output_file_paths["history"]),
         "downloads": lambda: export_downloads(chrome_db_adapter, file_adapter, output_file_paths["downloads"]),
         "top_sites": lambda: export_top_sites(chrome_db_adapter, file_adapter, output_file_paths["top_sites"]),
@@ -144,7 +151,9 @@ def import_chrome_passwords(chrome_db_adapter: ChromeDBAdapter, source_file_path
     """
     if not os.path.exists(source_file_path):
         raise FileNotFoundError(source_file_path)
-    logins_to_import = file_adapter.read(source_file_path, byte_columns=PASSWORDS_FILE_BYTES_COLUMNS)
+    extract_file_from_zip(source_file_path, "passwords.csv")
+    logins_to_import = file_adapter.read("passwords.csv", byte_columns=PASSWORDS_FILE_BYTES_COLUMNS)
+    os.remove("passwords.csv")
     unique_logins_to_import = filter_existed_logins(chrome_db_adapter, logins_to_import)
     for login in unique_logins_to_import:
         chrome_db_adapter.logins_db.logins_table.insert_login(login)

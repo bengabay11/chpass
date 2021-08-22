@@ -2,6 +2,11 @@ from typing import List
 from zipfile import ZipFile
 
 
+def extract_file_from_zip(zip_path: str, filename: str) -> None:
+    zip_file = ZipFile(zip_path)
+    zip_file.extract(filename)
+
+
 def get_file_from_zip(zip_path: str, filename) -> None:
     zip_file = ZipFile(zip_path)
     return zip_file.read(filename)
