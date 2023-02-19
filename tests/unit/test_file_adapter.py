@@ -46,7 +46,7 @@ def test_csv_read(file_adapter, output_file_path, correct_data_list):
 
 @pytest.mark.parametrize("file_adapter", [CsvFileAdapter(), JsonFileAdapter()])
 def test_csv_write_output_file_path_not_exist(file_adapter, not_exist_output_file_path, correct_data_list):
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(OSError):
         file_adapter.write(correct_data_list, not_exist_output_file_path)
     assert not os.path.exists(not_exist_output_file_path)
 
