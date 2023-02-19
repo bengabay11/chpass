@@ -1,3 +1,8 @@
 {
-	"cSpell.words": ["chpass", "sqlalchemy"]
+	"cSpell.words": ["chpass", "sqlalchemy"],
+	"markdownlint.config": {
+		"commands-show-output": false
+	},
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode"
 }
