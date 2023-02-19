@@ -1,5 +1,5 @@
 {
-	"cSpell.words": ["chpass", "sqlalchemy"],
+	"cSpell.words": ["chpass", "pipenv", "Pipfile", "sqlalchemy"],
 	"markdownlint.config": {
 		"commands-show-output": false
 	},
