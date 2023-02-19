@@ -22,7 +22,6 @@ class Login(Base):
     password_type = Column(Integer)
     times_used = Column(Integer)
     form_data = Column(LargeBinary)
-    date_synced = Column(Integer)
     display_name = Column(String)
     icon_url = Column(String)
     federation_url = Column(String)

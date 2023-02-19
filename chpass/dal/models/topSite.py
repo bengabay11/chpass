@@ -11,4 +11,3 @@ class TopSite(Base):
     url = Column(String, primary_key=True)
     url_rank = Column(Integer)
     title = Column(String)
-    redirects = Column(String)
