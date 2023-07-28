@@ -13,7 +13,7 @@ pytest-cov = ">=4.0.0"
 [packages]
 sqlalchemy = ">=2.0.4"
 pattern-singleton = ">=1.2.0"
-pandas = ">=1.5.3"
+pandas = ">=2.0.3"
 
 [scripts]
 lint = "pylint --rcfile=.pylintrc chpass"
