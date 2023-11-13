@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c60a7364a59ff98cf848c8d8bc5096db9bbd07323acccf2a8f58e14a3829e6ea"
+            "sha256": "cd46922c246b1ad5584d1c54700b3b66c56c11d8eba7e3377420c294fad5170c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -433,11 +433,12 @@
         },
         "poethepoet": {
             "hashes": [
-                "sha256:5f3566b14c2f5dccdfbc3bb26f0096006b38dc0b9c74bd4f8dd1eba7b0e29f6a",
-                "sha256:e85727bf6f4a10bf6c1a43026bdeb40df689bea3c4682d03cbe531cabc8f2ba6"
+                "sha256:73f1060200d1c8f21e303d06a879c5c0e17b96ab16740da70aee2dcc3e4350e4",
+                "sha256:8817c6d3d8492776bbb17eb29b7b815b2905aefaa0ad887137e69e53349e2235"
             ],
             "index": "pypi",
-            "version": "==0.18.1"
+            "markers": "python_version >= '3.8'",
+            "version": "==0.24.3"
         },
         "pylint": {
             "hashes": [
@@ -468,7 +469,7 @@
                 "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc",
                 "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"
             ],
-            "markers": "python_version < '3.11'",
+            "markers": "python_version >= '3.7'",
             "version": "==2.0.1"
         },
         "tomlkit": {
