@@ -1,6 +1,7 @@
 import getpass
 import os
 import sys
+from typing import List
 
 from chpass.config import (
     HISTORY_DB_FILE_NAME,
