@@ -3,11 +3,12 @@ import os
 import sys
 
 from chpass.config import (
-    HISTORY_DB_FILE_PATH,
-    LOGINS_DB_FILE_PATH,
-    TOP_SITES_DB_FILE_PATH,
-    GOOGLE_PICTURE_FILE_PATH,
-    CHROME_FOLDER_OS_PATHS
+    HISTORY_DB_FILE_NAME,
+    LOGINS_DB_FILE_NAME,
+    TOP_SITES_DB_FILE_NAME,
+    GOOGLE_PICTURE_FILE_NAME,
+    CHROME_FOLDER_OS_PATHS,
+    DEFAULT_CHROME_PROFILE
 )
 from chpass.exceptions.chrome_not_installed_exception import ChromeNotInstalledException
 from chpass.exceptions.operating_system_not_supported import OperatingSystemNotSupported
@@ -43,17 +44,17 @@ def get_chrome_user_folder(user: str = getpass.getuser(), platform=sys.platform)
     return chrome_user_folder
 
 
-def get_chrome_history_path(user: str = getpass.getuser()) -> str:
-    return os.path.join(get_chrome_user_folder(user), HISTORY_DB_FILE_PATH)
+def get_chrome_history_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
+    return os.path.join(get_chrome_user_folder(user), profile, HISTORY_DB_FILE_NAME)
 
 
-def get_chrome_logins_path(user: str = getpass.getuser()) -> str:
-    return os.path.join(get_chrome_user_folder(user), LOGINS_DB_FILE_PATH)
+def get_chrome_logins_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
+    return os.path.join(get_chrome_user_folder(user), profile, LOGINS_DB_FILE_NAME)
 
 
-def get_chrome_top_sites_path(user: str = getpass.getuser()) -> str:
-    return os.path.join(get_chrome_user_folder(user), TOP_SITES_DB_FILE_PATH)
+def get_chrome_top_sites_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
+    return os.path.join(get_chrome_user_folder(user), profile, TOP_SITES_DB_FILE_NAME)
 
 
-def get_chrome_profile_picture_path(user: str = getpass.getuser()) -> str:
-    return os.path.join(get_chrome_user_folder(user), GOOGLE_PICTURE_FILE_PATH)
+def get_chrome_profile_picture_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
+    return os.path.join(get_chrome_user_folder(user), profile, GOOGLE_PICTURE_FILE_NAME)

@@ -23,13 +23,13 @@ def create_file_adapter(file_adapter_type: str) -> file_adapter_interface:
     return object_factory.create(file_adapter_type, exception=FileAdapterNotSupportedException)
 
 
-def create_chrome_db_adapter(protocol: str, os_user: str) -> ChromeDBAdapter:
+def create_chrome_db_adapter(protocol: str, os_user: str, profile: str) -> ChromeDBAdapter:
     logins_db_connection = DBConnection()
     history_db_connection = DBConnection()
     top_sites_db_connection = DBConnection()
-    logins_db_connection.connect(protocol, get_chrome_logins_path(os_user))
-    history_db_connection.connect(protocol, get_chrome_history_path(os_user))
-    top_sites_db_connection.connect(protocol, get_chrome_top_sites_path(os_user))
+    logins_db_connection.connect(protocol, get_chrome_logins_path(os_user, profile))
+    history_db_connection.connect(protocol, get_chrome_history_path(os_user, profile))
+    top_sites_db_connection.connect(protocol, get_chrome_top_sites_path(os_user, profile))
     logins_db_adapter = LoginsDBAdapter(logins_db_connection)
     history_db_adapter = HistoryDBAdapter(history_db_connection)
     top_sites_db_adapter = TopSitesDBAdapter(top_sites_db_connection)
@@ -43,10 +43,10 @@ def start(args=None) -> None:
         args = parse_args(sys.argv[1:])
     file_adapter = create_file_adapter(args.file_adapter)
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
-    chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user)
+    chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user, args.profile)
     mode_actions = {
         "export": lambda: export_chrome_data(chrome_db_adapter, args.destination_folder, file_adapter,
-                                             output_file_paths, args.user, args.export_kind),
+                                             output_file_paths, args.user, args.export_kind, args.profile),
         "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter)
     }
     mode_actions[args.mode]()

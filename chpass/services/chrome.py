@@ -5,7 +5,7 @@ from typing import List, Callable
 
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.core.interfaces import file_adapter_interface
-from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE
+from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE, DEFAULT_CHROME_PROFILE
 from chpass.services.path import get_chrome_profile_picture_path
 
 
@@ -18,14 +18,15 @@ def generic_export(
     file_adapter.write(data, f"{destination_folder}/{filename}")
 
 
-def export_profile_picture(destination_path: str, user: str = getpass.getuser()) -> None:
+def export_profile_picture(destination_path: str, user: str = getpass.getuser(),
+                           profile: str = DEFAULT_CHROME_PROFILE) -> None:
     """Exports google profile picture
     :param destination_path: Destination path to export the picture
     :param user: Chrome user
     :return: None
     :rtype: None
     """
-    source_path = get_chrome_profile_picture_path(user)
+    source_path = get_chrome_profile_picture_path(user, profile)
     copyfile(source_path, destination_path)
 
 
@@ -103,7 +104,8 @@ def export_chrome_data(
         file_adapter: file_adapter_interface,
         output_file_paths: dict,
         user: str = getpass.getuser(),
-        export_kind: str = None) -> None:
+        export_kind: str = None,
+        profile: str = DEFAULT_CHROME_PROFILE) -> None:
     """Exports chrome data to a file
     :param chrome_db_adapter: Adapter for the chrome db
     :param destination_folder: Destination folder path to save file in
@@ -111,6 +113,7 @@ def export_chrome_data(
     :param output_file_paths: Dictionary that maps between data type and its destination file path
     :param user: Chrome user
     :param export_kind: Specific data type export instead of export all the data
+    :param profile: Chrome profile folder name
     :return: None
     :rtype: None
     """
@@ -125,7 +128,8 @@ def export_chrome_data(
                                               output_file_paths["downloads"]),
         "top_sites": lambda: export_top_sites(chrome_db_adapter, file_adapter, destination_folder,
                                               output_file_paths["top_sites"]),
-        "profile_pic": lambda: export_profile_picture(f"{destination_folder}/{output_file_paths['profile_picture']}", user)
+        "profile_pic": lambda: export_profile_picture(
+            f"{destination_folder}/{output_file_paths['profile_picture']}", user, profile)
     }
     if export_kind:
         export_functions[export_kind]()
