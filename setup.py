@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="chpass",
-    version="0.3.6",
+    version="0.4.0",
     author="Ben Gabay",
     author_email="ben.gabay38@gmail.com",
     license="License :: OSI Approved :: MIT License",
