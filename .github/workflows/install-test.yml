@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Ensure build tools
+        run: |
+          python -m pip install --upgrade pip setuptools
       - name: Install package via setup.py
         run: |
           python setup.py install
