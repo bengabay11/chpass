@@ -18,14 +18,14 @@ def generic_export(
     file_adapter.write(data, f"{destination_folder}/{filename}")
 
 
-def export_profile_picture(destination_path: str, user: str = getpass.getuser()) -> None:
+def export_profile_picture(destination_path: str, user: str = getpass.getuser(), profile: str = "Default") -> None:
     """Exports google profile picture
     :param destination_path: Destination path to export the picture
     :param user: Chrome user
     :return: None
     :rtype: None
     """
-    source_path = get_chrome_profile_picture_path(user)
+    source_path = get_chrome_profile_picture_path(user, profile)
     copyfile(source_path, destination_path)
 
 
@@ -103,7 +103,8 @@ def export_chrome_data(
         file_adapter: file_adapter_interface,
         output_file_paths: dict,
         user: str = getpass.getuser(),
-        export_kind: str = None) -> None:
+        export_kind: str = None,
+        profile: str = "Default") -> None:
     """Exports chrome data to a file
     :param chrome_db_adapter: Adapter for the chrome db
     :param destination_folder: Destination folder path to save file in
@@ -125,7 +126,9 @@ def export_chrome_data(
                                               output_file_paths["downloads"]),
         "top_sites": lambda: export_top_sites(chrome_db_adapter, file_adapter, destination_folder,
                                               output_file_paths["top_sites"]),
-        "profile_pic": lambda: export_profile_picture(f"{destination_folder}/{output_file_paths['profile_picture']}", user)
+        "profile_pic": lambda: export_profile_picture(
+            f"{destination_folder}/{output_file_paths['profile_picture']}", user, profile
+        )
     }
     if export_kind:
         export_functions[export_kind]()

@@ -43,17 +43,17 @@ def get_chrome_user_folder(user: str = getpass.getuser(), platform=sys.platform)
     return chrome_user_folder
 
 
-def get_chrome_history_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), HISTORY_DB_FILE_PATH)
+def get_chrome_history_path(user: str = getpass.getuser(), profile: str = "Default") -> str:
+    return "/" + os.path.join(get_chrome_user_folder(user), profile, HISTORY_DB_FILE_PATH)
 
 
-def get_chrome_logins_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), LOGINS_DB_FILE_PATH)
+def get_chrome_logins_path(user: str = getpass.getuser(), profile: str = "Default") -> str:
+    return "/" + os.path.join(get_chrome_user_folder(user), profile, LOGINS_DB_FILE_PATH)
 
 
-def get_chrome_top_sites_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), TOP_SITES_DB_FILE_PATH)
+def get_chrome_top_sites_path(user: str = getpass.getuser(), profile: str = "Default") -> str:
+    return "/" + os.path.join(get_chrome_user_folder(user), profile, TOP_SITES_DB_FILE_PATH)
 
 
-def get_chrome_profile_picture_path(user: str = getpass.getuser()) -> str:
-    return os.path.join(get_chrome_user_folder(user), GOOGLE_PICTURE_FILE_PATH)
+def get_chrome_profile_picture_path(user: str = getpass.getuser(), profile: str = "Default") -> str:
+    return os.path.join(get_chrome_user_folder(user), profile, GOOGLE_PICTURE_FILE_PATH)
