@@ -7,10 +7,11 @@ CHROME_FOLDER_OS_PATHS = {
     "darwin": "Library/Application Support/Google/Chrome"
 }
 
-LOGINS_DB_FILE_PATH = os.path.join("Default", "Login Data")
-HISTORY_DB_FILE_PATH = os.path.join("Default", "History")
-TOP_SITES_DB_FILE_PATH = os.path.join("Default", "Top Sites")
-GOOGLE_PICTURE_FILE_PATH = os.path.join("Default", "Google Profile Picture.png")
+DEFAULT_CHROME_PROFILE = "Default"
+LOGINS_DB_FILE_NAME = "Login Data"
+HISTORY_DB_FILE_NAME = "History"
+TOP_SITES_DB_FILE_NAME = "Top Sites"
+GOOGLE_PICTURE_FILE_NAME = "Google Profile Picture.png"
 
 DEFAULT_EXPORT_DESTINATION_FOLDER = "dist"
 OUTPUT_FILE_PATHS = {

@@ -3,7 +3,8 @@ import getpass
 
 from chpass.config import (
     DEFAULT_EXPORT_DESTINATION_FOLDER,
-    DEFAULT_FILE_ADAPTER
+    DEFAULT_FILE_ADAPTER,
+    DEFAULT_CHROME_PROFILE
 )
 
 
@@ -50,6 +51,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
     create_export_parser(subparsers)
     parser.add_argument("-u", "--user", dest="user", type=str, default=getpass.getuser())
     parser.add_argument("-i", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
+    parser.add_argument("-p", "--profile", dest="profile", type=str, default=DEFAULT_CHROME_PROFILE)
     return parser
 
 
