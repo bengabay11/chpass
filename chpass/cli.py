@@ -49,6 +49,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
     subparsers.required = True
     create_import_parser(subparsers)
     create_export_parser(subparsers)
+    subparsers.add_parser("list-profiles", description="list all chrome profiles")
     parser.add_argument("-u", "--user", dest="user", type=str, default=getpass.getuser())
     parser.add_argument("-i", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
     parser.add_argument("-p", "--profile", dest="profile", type=str, default=DEFAULT_CHROME_PROFILE)
