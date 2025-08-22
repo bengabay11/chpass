@@ -1,7 +1,7 @@
 name: Integration Tests
 on: [pull_request]
 jobs:
-  test_integration:
+  test:
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 12
