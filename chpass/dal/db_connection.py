@@ -1,4 +1,5 @@
 from typing import Type, Any
+import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -14,6 +15,8 @@ class DBConnection(object):
         self._session_class = None
 
     def connect(self, protocol: str, database: str) -> None:
+        if protocol == "sqlite" and not os.path.exists(database):
+            raise FileNotFoundError(f"database file does not exist: {database}")
         url = URL.create(protocol, database=str(database))
         engine = create_engine(url)
         self._session_class = sessionmaker(bind=engine)
