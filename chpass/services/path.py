@@ -44,15 +44,15 @@ def get_chrome_user_folder(user: str = getpass.getuser(), platform=sys.platform)
 
 
 def get_chrome_history_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), HISTORY_DB_FILE_PATH)
+    return os.path.join(get_chrome_user_folder(user), HISTORY_DB_FILE_PATH)
 
 
 def get_chrome_logins_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), LOGINS_DB_FILE_PATH)
+    return os.path.join(get_chrome_user_folder(user), LOGINS_DB_FILE_PATH)
 
 
 def get_chrome_top_sites_path(user: str = getpass.getuser()) -> str:
-    return "/" + os.path.join(get_chrome_user_folder(user), TOP_SITES_DB_FILE_PATH)
+    return os.path.join(get_chrome_user_folder(user), TOP_SITES_DB_FILE_PATH)
 
 
 def get_chrome_profile_picture_path(user: str = getpass.getuser()) -> str:
