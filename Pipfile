@@ -15,6 +15,7 @@ exceptiongroup = ">=1.2.2"
 pattern-singleton = ">=1.2.0"
 pandas = "==2.2.0"
 sqlalchemy = "==2.0.31"
+click = ">=8.1.7"
 
 [scripts]
 lint = "pylint --rcfile=.pylintrc chpass"
