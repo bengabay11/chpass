@@ -9,7 +9,7 @@ from chpass.dal.db_adapters.history_db_adapter import HistoryDBAdapter
 from chpass.dal.db_adapters.logins_db_adapter import LoginsDBAdapter
 from chpass.dal.db_adapters.top_sites_db_adapter import TopSitesDBAdapter
 from chpass.exceptions.file_adapter_not_supported_exception import FileAdapterNotSupportedException
-from chpass.services.chrome import export_chrome_data, import_chrome_passwords
+from chpass.services.chrome import export_chrome_data, import_chrome_passwords, list_profiles
 from chpass.services.file_adapters.csv_file_adapter import CsvFileAdapter
 from chpass.services.file_adapters.json_file_adapter import JsonFileAdapter
 from chpass.core.interfaces import file_adapter_interface
@@ -47,7 +47,8 @@ def start(args=None) -> None:
     mode_actions = {
         "export": lambda: export_chrome_data(chrome_db_adapter, args.destination_folder, file_adapter,
                                              output_file_paths, args.user, args.export_kind, args.profile),
-        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter)
+        "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter),
+        "list-profiles": list_profiles
     }
     mode_actions[args.mode]()
     chrome_db_adapter.close()

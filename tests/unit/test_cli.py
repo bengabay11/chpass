@@ -19,6 +19,11 @@ def from_file() -> str:
     return "passwords.csv"
 
 
+@pytest.fixture(scope="module")
+def profiles_mode() -> str:
+    return "list-profiles"
+
+
 def test_default_export(export_mode, connected_user):
     args = parse_args([export_mode])
     assert args.mode == export_mode

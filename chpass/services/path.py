@@ -1,6 +1,7 @@
 import getpass
 import os
 import sys
+from typing import List
 
 from chpass.config import (
     HISTORY_DB_FILE_NAME,
@@ -58,3 +59,19 @@ def get_chrome_top_sites_path(user: str = getpass.getuser(), profile: str = DEFA
 
 def get_chrome_profile_picture_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
     return os.path.join(get_chrome_user_folder(user), profile, GOOGLE_PICTURE_FILE_NAME)
+
+
+def get_chrome_profiles(user: str = getpass.getuser(), platform: str = sys.platform) -> List[str]:
+    """Get all chrome profiles of the given user
+    :param user: Chrome user
+    :param platform: Operating system
+    :return: List of chrome profiles names
+    :rtype: list[str]
+    """
+    chrome_user_folder = get_chrome_user_folder(user, platform)
+    profiles = []
+    for entry in os.listdir(chrome_user_folder):
+        profile_path = os.path.join(chrome_user_folder, entry)
+        if os.path.isdir(profile_path) and (entry == DEFAULT_CHROME_PROFILE or entry.startswith("Profile ")):
+            profiles.append(entry)
+    return sorted(profiles)

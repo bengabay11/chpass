@@ -164,3 +164,8 @@ def import_chrome_passwords(chrome_db_adapter: ChromeDBAdapter, source_file_path
     unique_logins_to_import = filter_existed_logins(chrome_db_adapter, logins_to_import)
     for login in unique_logins_to_import:
         chrome_db_adapter.logins_db.logins_table.insert_login(login)
+
+
+def list_profiles():
+    for profile in get_chrome_profiles(args.user):
+        print(profile)
