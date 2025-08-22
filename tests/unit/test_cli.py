@@ -1,7 +1,11 @@
 import pytest
 
 from chpass.cli import parse_args
-from chpass.config import DEFAULT_EXPORT_DESTINATION_FOLDER, DEFAULT_FILE_ADAPTER, DEFAULT_CHROME_PROFILE
+from chpass.config import (
+    DEFAULT_CHROME_PROFILE,
+    DEFAULT_EXPORT_DESTINATION_FOLDER,
+    DEFAULT_FILE_ADAPTER,
+)
 
 
 @pytest.fixture(scope="module")
@@ -17,11 +21,6 @@ def import_mode() -> str:
 @pytest.fixture(scope="module")
 def from_file() -> str:
     return "passwords.csv"
-
-
-@pytest.fixture(scope="module")
-def profiles_mode() -> str:
-    return "list-profiles"
 
 
 def test_default_export(export_mode, connected_user):
@@ -97,3 +96,22 @@ def test_profile_flag(export_mode):
     args = parse_args(["-p", profile, export_mode])
     assert args.mode == export_mode
     assert args.profile == profile
+
+
+def test_list_profiles(connected_user):
+    args = parse_args(["list-profiles"])
+    assert args.mode == "list-profiles"
+    assert args.user == connected_user
+    assert args.profile == DEFAULT_CHROME_PROFILE
+
+
+@pytest.mark.parametrize(
+    "export_kind",
+    ["passwords", "history", "downloads", "top_sites", "profile_pic"],
+)
+def test_export_subcommands(export_kind):
+    args = parse_args(["export", export_kind])
+    assert args.mode == "export"
+    assert args.export_kind == export_kind
+    assert args.destination_folder == DEFAULT_EXPORT_DESTINATION_FOLDER
+    assert args.profile == DEFAULT_CHROME_PROFILE
