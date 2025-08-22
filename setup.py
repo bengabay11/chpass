@@ -15,7 +15,7 @@ setuptools.setup(
     url="https://github.com/bengabay11/chpass",
     packages=setuptools.find_packages(),
     install_requires=[
-        "sqlalchemy==2.0.22",
+        "sqlalchemy==2.0.25",
         "pattern_singleton==1.2.0",
         "pandas==2.2.0"
     ],
