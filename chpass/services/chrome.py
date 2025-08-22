@@ -6,7 +6,7 @@ from typing import List, Callable
 from chpass.dal.chrome_db_adapter import ChromeDBAdapter
 from chpass.core.interfaces import file_adapter_interface
 from chpass.config import PASSWORDS_FILE_BYTES_COLUMNS, CREDENTIALS_ALREADY_EXIST_MESSAGE, DEFAULT_CHROME_PROFILE
-from chpass.services.path import get_chrome_profile_picture_path
+from chpass.services.path import get_chrome_profile_picture_path, get_chrome_profiles
 
 
 def generic_export(
@@ -166,6 +166,11 @@ def import_chrome_passwords(chrome_db_adapter: ChromeDBAdapter, source_file_path
         chrome_db_adapter.logins_db.logins_table.insert_login(login)
 
 
-def list_profiles():
-    for profile in get_chrome_profiles(args.user):
+def list_profiles(user: str = getpass.getuser()) -> None:
+    """Lists all chrome profiles of the given user
+    :param user: Chrome user
+    :return: None
+    :rtype: None
+    """
+    for profile in get_chrome_profiles(user):
         print(profile)

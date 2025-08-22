@@ -41,6 +41,11 @@ def start(args=None) -> None:
         args = parse_args(args)
     else:
         args = parse_args(sys.argv[1:])
+        
+    if args.mode == "list-profiles":
+        list_profiles(args.user)
+        sys.exit(0)
+    
     file_adapter = create_file_adapter(args.file_adapter)
     output_file_paths = OUTPUT_FILE_PATHS[args.file_adapter]
     chrome_db_adapter = create_chrome_db_adapter(DB_PROTOCOL, args.user, args.profile)
@@ -48,7 +53,6 @@ def start(args=None) -> None:
         "export": lambda: export_chrome_data(chrome_db_adapter, args.destination_folder, file_adapter,
                                              output_file_paths, args.user, args.export_kind, args.profile),
         "import": lambda: import_chrome_passwords(chrome_db_adapter, args.from_file, file_adapter),
-        "list-profiles": list_profiles
     }
     mode_actions[args.mode]()
     chrome_db_adapter.close()
