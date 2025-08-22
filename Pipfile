@@ -9,6 +9,7 @@ poethepoet = ">=0.18.1"
 pylint = ">=2.16.2"
 coverage = ">=7.1.0"
 pytest-cov = ">=4.0.0"
+exceptiongroup = ">=1.2.2"
 
 [packages]
 pattern-singleton = ">=1.2.0"
