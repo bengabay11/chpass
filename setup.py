@@ -2,10 +2,12 @@ import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
+from chpass import __version__
+
 
 setuptools.setup(
     name="chpass",
-    version="0.4.0",
+    version=__version__,
     author="Ben Gabay",
     author_email="ben.gabay38@gmail.com",
     license="License :: OSI Approved :: MIT License",

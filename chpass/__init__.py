@@ -6,6 +6,8 @@
     :copyright: 2020 Ben Gabay
     :license: MIT, see LICENSE for more details.
 """
+__version__ = "0.4.0"
+
 from .__main__ import start
 
 from .services.chrome import (

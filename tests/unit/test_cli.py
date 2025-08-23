@@ -1,5 +1,6 @@
 import pytest
 
+from chpass import __version__
 from chpass.cli import parse_args
 from chpass.config import DEFAULT_EXPORT_DESTINATION_FOLDER, DEFAULT_FILE_ADAPTER, DEFAULT_CHROME_PROFILE
 
@@ -97,3 +98,11 @@ def test_profile_flag(export_mode):
     args = parse_args(["-p", profile, export_mode])
     assert args.mode == export_mode
     assert args.profile == profile
+
+
+def test_version_flag(capsys):
+    with pytest.raises(SystemExit) as exc:
+        parse_args(["--version"])
+    assert exc.value.code == 0
+    captured = capsys.readouterr()
+    assert captured.out.strip() == f"chpass {__version__}"

@@ -1,6 +1,7 @@
 import argparse
 import getpass
 
+from chpass import __version__
 from chpass.config import (
     DEFAULT_EXPORT_DESTINATION_FOLDER,
     DEFAULT_FILE_ADAPTER,
@@ -45,6 +46,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
         description="Gather information from chrome",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     subparsers = parser.add_subparsers(dest="mode")
     subparsers.required = True
     create_import_parser(subparsers)
