@@ -46,7 +46,7 @@ def create_arg_parser() -> argparse.ArgumentParser:
         description="Gather information from chrome",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {__version__}")
     subparsers = parser.add_subparsers(dest="mode")
     subparsers.required = True
     create_import_parser(subparsers)

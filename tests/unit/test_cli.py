@@ -100,9 +100,10 @@ def test_profile_flag(export_mode):
     assert args.profile == profile
 
 
-def test_version_flag(capsys):
+@pytest.mark.parametrize("flag", ["--version", "-v"])
+def test_version_flag(flag, capsys):
     with pytest.raises(SystemExit) as exc:
-        parse_args(["--version"])
+        parse_args([flag])
     assert exc.value.code == 0
     captured = capsys.readouterr()
     assert captured.out.strip() == f"chpass {__version__}"
