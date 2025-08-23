@@ -19,6 +19,8 @@ from .services.chrome import (
 )
 from .services.path import get_chrome_user_folder, get_home_directory
 
+__version__ = "0.4.1"
+
 
 def main():
     start()

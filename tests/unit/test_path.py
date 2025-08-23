@@ -6,6 +6,7 @@ def test_get_chrome_profiles_recognizes_common_profiles(tmp_path, monkeypatch):
     profiles = [
         path.DEFAULT_CHROME_PROFILE,
         "Profile 1",
+        "Profile foo",
         path.GUEST_CHROME_PROFILE,
         path.SYSTEM_CHROME_PROFILE,
         "NotAProfile",

@@ -82,13 +82,10 @@ def get_chrome_profiles(user: str = getpass.getuser(), platform: str = sys.platf
     profiles = []
     for entry in os.listdir(chrome_user_folder):
         profile_path = os.path.join(chrome_user_folder, entry)
-        if os.path.isdir(profile_path) and (
-            entry.startswith("Profile ")
-            or entry in (
-                DEFAULT_CHROME_PROFILE,
-                GUEST_CHROME_PROFILE,
-                SYSTEM_CHROME_PROFILE,
-            )
-        ):
+        if not os.path.isdir(profile_path):
+            continue
+        if entry in (DEFAULT_CHROME_PROFILE, GUEST_CHROME_PROFILE, SYSTEM_CHROME_PROFILE):
+            profiles.append(entry)
+        elif entry.startswith("Profile ") and entry[8:].isdigit():
             profiles.append(entry)
     return sorted(profiles)
