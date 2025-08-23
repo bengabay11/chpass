@@ -6,7 +6,7 @@
     :copyright: 2020 Ben Gabay
     :license: MIT, see LICENSE for more details.
 """
-__version__ = "0.4.0"
+__version__ = "0.4.2"
 
 from .__main__ import start
 
