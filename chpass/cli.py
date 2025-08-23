@@ -1,61 +1,116 @@
-import argparse
 import getpass
+from types import SimpleNamespace
+
+import click
+from click.testing import CliRunner
 
 from chpass.config import (
+    DEFAULT_CHROME_PROFILE,
     DEFAULT_EXPORT_DESTINATION_FOLDER,
     DEFAULT_FILE_ADAPTER,
-    DEFAULT_CHROME_PROFILE
 )
 
 
-def create_import_parser(subparsers: argparse._SubParsersAction) -> None:
-    parser_import = subparsers.add_parser("import", description="imports a file with the passwords")
-    parser_import.add_argument(
-        "-f",
-        "--from",
-        dest="from_file",
-        help="credentials file to import from",
-        type=str,
-        required=True
+@click.group()
+@click.option("-u", "--user", default=getpass.getuser(), type=str)
+@click.option("-i", "--file-adapter", default=DEFAULT_FILE_ADAPTER, type=str)
+@click.option("-p", "--profile", default=DEFAULT_CHROME_PROFILE, type=str)
+@click.pass_context
+def cli(ctx: click.Context, user: str, file_adapter: str, profile: str) -> None:
+    """Gather information from chrome."""
+    ctx.ensure_object(dict)
+    ctx.obj.update({
+        "user": user,
+        "file_adapter": file_adapter,
+        "profile": profile,
+    })
+
+
+@cli.command(name="import")
+@click.option(
+    "-f",
+    "--from",
+    "from_file",
+    required=True,
+    type=str,
+    help="credentials file to import from",
+)
+@click.pass_context
+def import_cmd(ctx: click.Context, from_file: str) -> SimpleNamespace:
+    """imports a file with the passwords"""
+    ctx.obj.update({"mode": "import", "from_file": from_file})
+    return SimpleNamespace(**ctx.obj)
+
+
+@cli.group(invoke_without_command=True)
+@click.option(
+    "-d",
+    "--destination",
+    "destination_folder",
+    default=DEFAULT_EXPORT_DESTINATION_FOLDER,
+    type=str,
+    help="destination folder to export the files",
+)
+@click.pass_context
+def export(ctx: click.Context, destination_folder: str) -> SimpleNamespace | None:
+    """exports a chrome data files"""
+    ctx.obj.update(
+        {
+            "mode": "export",
+            "destination_folder": destination_folder,
+            "export_kind": None,
+        }
     )
+    if ctx.invoked_subcommand is None:
+        return SimpleNamespace(**ctx.obj)
+    return None
 
 
-def create_export_parser(subparsers: argparse._SubParsersAction) -> None:
-    parser_export = subparsers.add_parser("export", description="exports a chrome data files")
-    parser_export.add_argument(
-        "-d",
-        "--destination",
-        dest="destination_folder",
-        type=str,
-        help="destination folder to export the files",
-        default=DEFAULT_EXPORT_DESTINATION_FOLDER
-    )
-    export_subparsers = parser_export.add_subparsers(dest="export_kind")
-    export_subparsers.required = False
-    export_subparsers.add_parser("passwords", description="export passwords")
-    export_subparsers.add_parser("history", description="export history")
-    export_subparsers.add_parser("downloads", description="export downloads")
-    export_subparsers.add_parser("top_sites", description="export top sites")
-    export_subparsers.add_parser("profile_pic", description="export profile picture")
+@export.command("passwords")
+@click.pass_context
+def export_passwords(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"export_kind": "passwords"})
+    return SimpleNamespace(**ctx.obj)
 
 
-def create_arg_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="chpass",
-        description="Gather information from chrome",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-    )
-    subparsers = parser.add_subparsers(dest="mode")
-    subparsers.required = True
-    create_import_parser(subparsers)
-    create_export_parser(subparsers)
-    subparsers.add_parser("list-profiles", description="list all chrome profiles")
-    parser.add_argument("-u", "--user", dest="user", type=str, default=getpass.getuser())
-    parser.add_argument("-i", "--file-adapter", dest="file_adapter", type=str, default=DEFAULT_FILE_ADAPTER)
-    parser.add_argument("-p", "--profile", dest="profile", type=str, default=DEFAULT_CHROME_PROFILE)
-    return parser
+@export.command("history")
+@click.pass_context
+def export_history(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"export_kind": "history"})
+    return SimpleNamespace(**ctx.obj)
 
 
-def parse_args(args: list) -> argparse.Namespace:
-    arg_parser = create_arg_parser()
-    return arg_parser.parse_args(args)
+@export.command("downloads")
+@click.pass_context
+def export_downloads(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"export_kind": "downloads"})
+    return SimpleNamespace(**ctx.obj)
+
+
+@export.command("top_sites")
+@click.pass_context
+def export_top_sites(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"export_kind": "top_sites"})
+    return SimpleNamespace(**ctx.obj)
+
+
+@export.command("profile_pic")
+@click.pass_context
+def export_profile_pic(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"export_kind": "profile_pic"})
+    return SimpleNamespace(**ctx.obj)
+
+
+@cli.command("list-profiles")
+@click.pass_context
+def list_profiles(ctx: click.Context) -> SimpleNamespace:
+    ctx.obj.update({"mode": "list-profiles"})
+    return SimpleNamespace(**ctx.obj)
+
+
+def parse_args(args: list[str]) -> SimpleNamespace:
+    runner = CliRunner()
+    result = runner.invoke(cli, args, standalone_mode=False)
+    if result.exception:
+        raise result.exception
+    return result.return_value
