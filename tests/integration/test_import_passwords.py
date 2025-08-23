@@ -1,4 +1,5 @@
 import pytest
+from chpass.config import DEFAULT_EXPORT_DESTINATION_FOLDER
 
 
 @pytest.fixture(scope="module")
@@ -7,8 +8,8 @@ def import_mode() -> str:
 
 
 @pytest.fixture(scope="module")
-def from_file() -> str:
-    return "dist/passwords.csv"
+def from_file():
+    return DEFAULT_EXPORT_DESTINATION_FOLDER / "passwords.csv"
 
 
 @pytest.fixture(scope="module")

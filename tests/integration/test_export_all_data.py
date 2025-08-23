@@ -1,4 +1,5 @@
 import pytest
+from chpass.config import DEFAULT_EXPORT_DESTINATION_FOLDER
 
 
 @pytest.fixture(scope="module")
@@ -12,8 +13,8 @@ def file_adapter_type() -> str:
 
 
 @pytest.fixture(scope="module")
-def destination_folder() -> str:
-    return "dist"
+def destination_folder():
+    return DEFAULT_EXPORT_DESTINATION_FOLDER
 
 
 def test_default_export(export_mode):
