@@ -14,6 +14,7 @@ from chpass.config import (
 from chpass.exceptions.chrome_not_installed_exception import ChromeNotInstalledException
 from chpass.exceptions.operating_system_not_supported import OperatingSystemNotSupported
 from chpass.exceptions.user_not_found_exception import UserNotFoundException
+from chpass.exceptions.chrome_profile_not_found_exception import ChromeProfileNotFoundException
 
 
 def get_home_directory(user: str = getpass.getuser()) -> str:
@@ -45,20 +46,28 @@ def get_chrome_user_folder(user: str = getpass.getuser(), platform=sys.platform)
     return chrome_user_folder
 
 
+def get_chrome_profile_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
+    chrome_user_folder = get_chrome_user_folder(user)
+    profile_path = os.path.join(chrome_user_folder, profile)
+    if not os.path.exists(profile_path):
+        raise ChromeProfileNotFoundException(profile)
+    return profile_path
+
+
 def get_chrome_history_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
-    return os.path.join(get_chrome_user_folder(user), profile, HISTORY_DB_FILE_NAME)
+    return os.path.join(get_chrome_profile_path(user, profile), HISTORY_DB_FILE_NAME)
 
 
 def get_chrome_logins_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
-    return os.path.join(get_chrome_user_folder(user), profile, LOGINS_DB_FILE_NAME)
+    return os.path.join(get_chrome_profile_path(user, profile), LOGINS_DB_FILE_NAME)
 
 
 def get_chrome_top_sites_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
-    return os.path.join(get_chrome_user_folder(user), profile, TOP_SITES_DB_FILE_NAME)
+    return os.path.join(get_chrome_profile_path(user, profile), TOP_SITES_DB_FILE_NAME)
 
 
 def get_chrome_profile_picture_path(user: str = getpass.getuser(), profile: str = DEFAULT_CHROME_PROFILE) -> str:
-    return os.path.join(get_chrome_user_folder(user), profile, GOOGLE_PICTURE_FILE_NAME)
+    return os.path.join(get_chrome_profile_path(user, profile), GOOGLE_PICTURE_FILE_NAME)
 
 
 def get_chrome_profiles(user: str = getpass.getuser(), platform: str = sys.platform) -> List[str]:
