@@ -20,6 +20,5 @@ from .services.chrome import (
 from .services.path import get_chrome_user_folder, get_home_directory
 
 
-
 def main():
     start()
