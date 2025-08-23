@@ -9,7 +9,9 @@ from chpass.config import (
     TOP_SITES_DB_FILE_NAME,
     GOOGLE_PICTURE_FILE_NAME,
     CHROME_FOLDER_OS_PATHS,
-    DEFAULT_CHROME_PROFILE
+    DEFAULT_CHROME_PROFILE,
+    GUEST_CHROME_PROFILE,
+    SYSTEM_CHROME_PROFILE,
 )
 from chpass.exceptions.chrome_not_installed_exception import ChromeNotInstalledException
 from chpass.exceptions.operating_system_not_supported import OperatingSystemNotSupported
@@ -62,7 +64,15 @@ def get_chrome_profile_picture_path(user: str = getpass.getuser(), profile: str 
 
 
 def get_chrome_profiles(user: str = getpass.getuser(), platform: str = sys.platform) -> List[str]:
-    """Get all chrome profiles of the given user
+    """Get all chrome profiles of the given user.
+
+    Chrome profile directories typically use one of the following names:
+
+    * ``Default`` – the first profile created when Chrome is installed.
+    * ``Profile <number>`` – additional profiles created by the user.
+    * ``Guest Profile`` – a temporary profile created for guest sessions.
+    * ``System Profile`` – profile used internally by Chrome.
+
     :param user: Chrome user
     :param platform: Operating system
     :return: List of chrome profiles names
@@ -72,6 +82,13 @@ def get_chrome_profiles(user: str = getpass.getuser(), platform: str = sys.platf
     profiles = []
     for entry in os.listdir(chrome_user_folder):
         profile_path = os.path.join(chrome_user_folder, entry)
-        if os.path.isdir(profile_path) and (entry == DEFAULT_CHROME_PROFILE or entry.startswith("Profile ")):
+        if os.path.isdir(profile_path) and (
+            entry.startswith("Profile ")
+            or entry in (
+                DEFAULT_CHROME_PROFILE,
+                GUEST_CHROME_PROFILE,
+                SYSTEM_CHROME_PROFILE,
+            )
+        ):
             profiles.append(entry)
     return sorted(profiles)
