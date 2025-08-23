@@ -133,9 +133,11 @@ def export_chrome_data(
     }
     if export_kind:
         export_functions[export_kind]()
+        print(f"[+] Exported '{export_kind}' to '{destination_folder}'")
     else:
         for export_func in export_functions.values():
             export_func()
+        print(f"[+] Exported all chrome data to '{destination_folder}'")
 
 
 def filter_existed_logins(chrome_db_adapter: ChromeDBAdapter, logins_to_import: List[dict]) -> list:
@@ -164,6 +166,9 @@ def import_chrome_passwords(chrome_db_adapter: ChromeDBAdapter, source_file_path
     unique_logins_to_import = filter_existed_logins(chrome_db_adapter, logins_to_import)
     for login in unique_logins_to_import:
         chrome_db_adapter.logins_db.logins_table.insert_login(login)
+    print(
+        f"[+] Imported {len(unique_logins_to_import)} credentials from '{source_file_path}'"
+    )
 
 
 def list_profiles(user: str = getpass.getuser()) -> None:
