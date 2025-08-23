@@ -135,9 +135,16 @@ def export_chrome_data(
         export_functions[export_kind]()
         print(f"[+] Exported '{export_kind}' to '{destination_folder}'")
     else:
-        for export_func in export_functions.values():
-            export_func()
-        print(f"[+] Exported all chrome data to '{destination_folder}'")
+        successful_exports = []
+        for export_name, export_func in export_functions.items():
+            try:
+                export_func()
+                successful_exports.append(export_name)
+            except Exception as e:
+                print(f"[!] Failed to export '{export_name}': {e}")
+        if successful_exports:
+            exports = ", ".join(successful_exports)
+            print(f"[+] Exported {exports} to '{destination_folder}'")
 
 
 def filter_existed_logins(chrome_db_adapter: ChromeDBAdapter, logins_to_import: List[dict]) -> list:
