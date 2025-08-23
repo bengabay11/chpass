@@ -59,5 +59,3 @@ def test_export_profile_picture_invalid_destination_path(invalid_destination_pat
     with pytest.raises(ValueError):
         export_profile_picture( invalid_destination_path, connected_user)
     assert not os.path.exists(invalid_destination_path)
-
-
