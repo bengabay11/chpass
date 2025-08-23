@@ -12,9 +12,10 @@ pytest-cov = ">=4.0.0"
 exceptiongroup = ">=1.2.2"
 
 [packages]
-pattern-singleton = ">=1.2.0"
-pandas = "==2.2.0"
-sqlalchemy = "==2.0.31"
+# Install the project itself in editable mode so that all runtime
+# dependencies are sourced from ``setup.py``. This avoids duplicating
+# dependency declarations and keeps a single source of truth.
+chpass = {path = ".", editable = true}
 
 [scripts]
 lint = "pylint --rcfile=.pylintrc chpass"
