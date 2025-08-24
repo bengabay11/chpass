@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 CHROME_FOLDER_OS_PATHS = {
     "win32": r"AppData\Local\Google\Chrome\User Data",
@@ -15,7 +16,9 @@ HISTORY_DB_FILE_NAME = "History"
 TOP_SITES_DB_FILE_NAME = "Top Sites"
 GOOGLE_PICTURE_FILE_NAME = "Google Profile Picture.png"
 
-DEFAULT_EXPORT_DESTINATION_FOLDER = "dist"
+# Default path where exported data will be stored when no destination is
+# provided. The directory is created under the current user's home folder.
+DEFAULT_EXPORT_DESTINATION_FOLDER = Path.home() / "chpass_exports"
 OUTPUT_FILE_PATHS = {
     "csv": {
         "passwords": "passwords.csv",

@@ -34,6 +34,8 @@ usage: chpass [-h] [-u USER] [-i FILE_ADAPTER] {import,export} ...
 usage: chpass export [-h] [-d DESTINATION_FOLDER] {passwords,history,downloads,top_sites,profile_pic} ...
 ```
 
+If `-d/--destination` is omitted, files are exported to `~/chpass_exports` by default.
+
 ### Import
 
 ```console
