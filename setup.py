@@ -17,7 +17,7 @@ setuptools.setup(
     install_requires=[
         "pattern-singleton==1.2.0",
         "sqlalchemy==2.0.31",
-        "pandas==2.2.0"
+        "pandas==2.3.2"
     ],
     python_requires=">=3",
     entry_points={
